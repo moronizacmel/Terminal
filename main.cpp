@@ -3,9 +3,20 @@
 #include <filesystem>
 #include <string>
 #include <sstream>
+#include <thread>
 
 using namespace std;
 namespace fs = filesystem;
+
+void showLoadingAnimation() {
+    std::cout << "Loading ";
+    for (int i = 0; i < 10; ++i) {
+        std::cout << ".";
+        std::cout.flush();
+        std::this_thread::sleep_for(std::chrono::milliseconds(300));
+    }
+    std::cout << " Complete!" << std::endl;
+}
 
 int main()
 {
@@ -53,6 +64,7 @@ int main()
             else
             {
                 cout << "Creating file: " << fileName << endl;
+                showLoadingAnimation();
                 std::ofstream txtfile("textfiles/" + fileNameTxt);
             }
             break;
@@ -84,7 +96,7 @@ int main()
                     {
                         cout << "" << endl;
                         cout << txtElement.path().filename().string() << ":" << endl;
-
+                        showLoadingAnimation();
                         ifstream inputFile(txtElement.path());
                         if (inputFile.is_open())
                         {
@@ -140,6 +152,7 @@ int main()
                     {
                         cout << "" << endl;
                         cout << "Editing " << txtElement.path().filename().string() << ":" << endl;
+                        
 
                        
                         fstream file(txtElement.path(), ios::in | ios::out);
@@ -175,7 +188,7 @@ int main()
                             file << finalContent.rdbuf();
 
                             file.close();
-
+                            showLoadingAnimation();
                             cout << "Content edited successfully." << endl;
                         }
                         else
@@ -226,6 +239,7 @@ int main()
                         {
 
                             cout << "Deleting " << txtElement.path().filename().string() << endl;
+                            showLoadingAnimation();
                         }
                     }
                     indexDeleting++;
