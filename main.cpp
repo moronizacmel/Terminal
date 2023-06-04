@@ -2,6 +2,7 @@
 #include <fstream>
 #include <filesystem>
 #include <string>
+#include <sstream>
 
 using namespace std;
 namespace fs = filesystem;
@@ -16,8 +17,11 @@ int main() {
     int option;
     int indexReading;
     int indexDeleting;
+    int indexWriting;
+
     int readFileSelection;
     int deleteFileSelection;
+    int writeFileSelection;
 
 
     while (true) {
@@ -100,9 +104,74 @@ int main() {
 
                 break;
 
-            case 3:
+            case 3:                
                 cout << "Writing..." << endl;
-                
+    cout << "" << endl;
+    indexWriting = 1;
+
+    for (const auto& txtElement : fs::directory_iterator(filesDirectory)) {
+        if (txtElement.path().extension() == ".txt") {
+            cout << indexWriting << ". " << txtElement.path().filename().string() << endl;
+            indexWriting++;
+        }
+    }
+    cout << "" << endl;
+    cout << "Select the file you want to edit: ";
+    cin >> writeFileSelection;
+
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Limpiar el búfer
+
+    indexWriting = 1;
+    for (const auto& txtElement : fs::directory_iterator(filesDirectory)) {
+        if (txtElement.path().extension() == ".txt") {
+            if (indexWriting == writeFileSelection) {
+                cout << "" << endl;
+                cout << "Editing " << txtElement.path().filename().string() << ":" << endl;
+
+                // Abrir el archivo en modo de lectura y escritura
+                fstream file(txtElement.path(), ios::in | ios::out);
+
+                if (file.is_open()) {
+                    // Leer y mostrar el contenido existente
+                    string line;
+                    stringstream currentContent;
+                    while (getline(file, line)) {
+                        currentContent << line << endl;
+                    }
+
+                    cout << "Current content:\n" << currentContent.str() << endl;
+
+                    file.clear(); // Limpiar las banderas de error del archivo
+                    file.seekp(0, ios::beg); // Posicionarse al principio del archivo para sobreescribir
+
+                    cout << "Enter the new content (press Enter on an empty line to keep the original content):\n";
+                    stringstream newContent;
+                    while (getline(cin, line) && !line.empty()) {
+                        newContent << line << endl;
+                    }
+
+                    // Obtener el tamaño del nuevo contenido
+                    streampos newContentSize = newContent.tellp();
+
+                    // Combinar el contenido original y el nuevo contenido
+                    stringstream finalContent;
+                    finalContent << currentContent.str() << newContent.str();
+
+                    // Sobrescribir el archivo con el contenido final
+                    file << finalContent.rdbuf();
+                    
+
+                    file.close();
+
+                    cout << "Content edited successfully." << endl;
+                } else {
+                    cout << "Unable to open the file for editing." << endl;
+                }
+            }
+            indexWriting++;
+        }
+    }
+    break;
 
 
 
@@ -124,22 +193,21 @@ int main() {
                 cout << "Select the file you want to delete: ";
                 cin >> deleteFileSelection;
 
+                indexDeleting = 1;
+
                 for(const auto& txtElement : fs::directory_iterator(filesDirectory)){
                     if(txtElement.path().extension() == ".txt"){
                         if(indexDeleting == deleteFileSelection){
                         cout << "" <<endl;
                         
                         if (std::remove(txtElement.path().string().c_str()) != 0) {
-                    // Error al eliminar el archivo
+                    
                     std::perror("Error al eliminar el archivo");
                 } else {
-                    // Archivo eliminado exitosamente
+                    
                     cout << "Deleting " << txtElement.path().filename().string() << endl;
                 }
 
-
-
-                        cout << "Deleting "<< txtElement.path().filename().string() << endl;
                         }
                         indexDeleting++;
                     }
