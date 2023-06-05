@@ -138,7 +138,6 @@ int main()
                         cout << "Press Enter to exit" << endl;
                         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                         std::cin.clear();
-                        std::cin.get();
                         founded = true;
                         break;
                     }
@@ -225,6 +224,7 @@ int main()
                             file.close();
                             showLoadingAnimation();
                             cout << "Content edited successfully." << endl;
+                            cout << "Press Enter to continue" << endl;
                         }
                         else
                         {
@@ -277,6 +277,8 @@ int main()
 
                             cout << "Deleting " << txtElement.path().filename().string() << endl;
                             showLoadingAnimation();
+                            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                            std::cin.clear();
                         }
                         founded = true;
                     }
@@ -292,9 +294,9 @@ int main()
             }
 
             founded = false;
-
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cin.clear();
+            cin.clear();
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            
 
             break;
 
@@ -305,8 +307,7 @@ int main()
             break;
         }
     
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    std::cin.clear();
+    
     }
 
     return 0;
