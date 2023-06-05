@@ -51,22 +51,38 @@ int main()
         {
         case 1:
 
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.clear();
+
+
             cout << "Write the name of the file: ";
-            cin >> fileName;
+            getline(cin, fileName);
             fileNameTxt = fileName + ".txt";
 
-            verifyFile = filesystem::path(filesDirectory) / fileName;
+            if(fileName.empty()){
+                break;
+            }
+
+            verifyFile = filesystem::path(filesDirectory) / fileNameTxt;
 
             if (filesystem::exists(verifyFile))
-            {
-                cout << "This File already exist" << endl;
+            {   
+                
+                cout << "\033[31m" << "Sorry, This File already exist" << endl;
+                cout << "\033[0m" << "" << endl;
+                showLoadingAnimation();
             }
             else
             {
-                cout << "Creating file: " << fileName << endl;
+                cout << "\033[32m" << "Creating file: " << fileName << endl;
+                cout << "\033[0m" << "" << endl;
                 showLoadingAnimation();
                 std::ofstream txtfile("textfiles/" + fileNameTxt);
             }
+
+
+
+
             break;
 
         case 2:
