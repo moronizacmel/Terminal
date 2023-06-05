@@ -27,6 +27,7 @@ int main()
     filesystem::path verifyFile;
 
     int option;
+
     int indexReading;
     int indexDeleting;
     int indexWriting;
@@ -35,8 +36,13 @@ int main()
     int deleteFileSelection;
     int writeFileSelection;
 
+    bool founded = false;
+
     while (true)
-    {
+    {   
+
+        
+
         cout << "" << endl;
         cout << "Select an option" << endl;
         cout << "1. Create" << endl;
@@ -44,6 +50,7 @@ int main()
         cout << "3. Write" << endl;
         cout << "4. Delete" << endl;
         cout << "-----------------------------" << endl;
+        
         cin >> option;
         cout << "" << endl;
 
@@ -55,7 +62,7 @@ int main()
             std::cin.clear();
 
 
-            cout << "Write the name of the file: ";
+            cout << "Write the name of the file (Press Enter to cancel): ";
             getline(cin, fileName);
             fileNameTxt = fileName + ".txt";
 
@@ -132,11 +139,23 @@ int main()
                         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                         std::cin.clear();
                         std::cin.get();
+                        founded = true;
                         break;
                     }
                     indexReading++;
                 }
             }
+
+            if(!founded){
+                cout << "\033[31m" << "File not founded" << endl;
+                cout << "\033[0m" << "" << endl;
+                showLoadingAnimation();
+            }
+
+            founded = false;
+
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.clear();
 
             break;
 
@@ -215,7 +234,9 @@ int main()
                     indexWriting++;
                 }
             }
-            break;
+
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.clear();
 
             break;
 
@@ -257,10 +278,23 @@ int main()
                             cout << "Deleting " << txtElement.path().filename().string() << endl;
                             showLoadingAnimation();
                         }
+                        founded = true;
                     }
                     indexDeleting++;
                 }
+                
             }
+
+            if(!founded){
+                cout << "\033[31m" << "File not founded" << endl;
+                cout << "\033[0m" << "" << endl;
+                showLoadingAnimation();
+            }
+
+            founded = false;
+
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.clear();
 
             break;
 
@@ -270,6 +304,9 @@ int main()
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             break;
         }
+    
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cin.clear();
     }
 
     return 0;
