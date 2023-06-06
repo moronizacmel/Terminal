@@ -9,6 +9,7 @@ using namespace std;
 namespace fs = filesystem;
 
 void showLoadingAnimation() {
+
     std::cout << "Loading ";
     for (int i = 0; i < 10; ++i) {
         std::cout << ".";
@@ -16,6 +17,7 @@ void showLoadingAnimation() {
         std::this_thread::sleep_for(std::chrono::milliseconds(300));
     }
     std::cout << " Complete!" << std::endl;
+
 }
 
 int main()
@@ -40,8 +42,6 @@ int main()
 
     while (true)
     {   
-
-        
 
         cout << "" << endl;
         cout << "Select an option" << endl;
@@ -86,9 +86,6 @@ int main()
                 showLoadingAnimation();
                 std::ofstream txtfile("textfiles/" + fileNameTxt);
             }
-
-
-
 
             break;
 
@@ -274,7 +271,6 @@ int main()
                         }
                         else
                         {
-
                             cout << "Deleting " << txtElement.path().filename().string() << endl;
                             showLoadingAnimation();
                             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -297,7 +293,6 @@ int main()
             cin.clear();
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             
-
             break;
 
         default:
@@ -307,8 +302,8 @@ int main()
             break;
         }
     
-    
     }
 
     return 0;
+
 }
