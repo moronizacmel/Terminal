@@ -275,6 +275,7 @@ int main()
                             showLoadingAnimation();
                             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                             std::cin.clear();
+                            cout << "Press Enter to exit" << endl;
                         }
                         founded = true;
                     }
