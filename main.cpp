@@ -4,9 +4,11 @@
 #include <string>
 #include <sstream>
 #include <thread>
+#include <vector>
 
 using namespace std;
 namespace fs = filesystem;
+
 
 void showLoadingAnimation() {
 
@@ -40,11 +42,20 @@ int main()
 
     bool founded = false;
 
+    
+
     while (true)
-    {   
+    {  
+
+        cout << " ______          __  __      _   _______                  _             _ " << endl;
+    cout << "|___  /         |  \\/  |    | | |__   __|                (_)           | |" << endl;        
+    cout << "   / / __ _  ___| \\  / | ___| |    | | ___ _ __ _ __ ___  _ _ __   __ _| |" << endl;  
+    cout << "  / / / _` |/ __| |\\/| |/ _ \\ |    | |/ _ \\ '__| '_ ` _ \\| | '_ \\ / _` | |" << endl;  
+    cout << " / /_| (_| | (__| |  | |  __/ |    | |  __/ |  | | | | | | | | | | (_| | |" << endl;  
+    cout << "/_____\\__,_|\\___|_|  |_|\\___|_|    |_|\\___|_|  |_| |_| |_|_|_| |_|\\__,_|_|" << endl;   
 
         cout << "" << endl;
-        cout << "Select an option" << endl;
+        cout << "Select an option(Select a number)" << endl;
         cout << "1. Create" << endl;
         cout << "2. Read" << endl;
         cout << "3. Write" << endl;
@@ -62,7 +73,7 @@ int main()
             std::cin.clear();
 
 
-            cout << "Write the name of the file (Press Enter to cancel): ";
+            cout << "Write the name of the txt file (or Press Enter to cancel): ";
             getline(cin, fileName);
             fileNameTxt = fileName + ".txt";
 
@@ -104,7 +115,7 @@ int main()
                 }
             }
             cout << "" << endl;
-            cout << "Select the file you want to read: ";
+            cout << "Select the number of the file you want to read: ";
             cin >> readFileSelection;
 
             indexReading = 1;
@@ -117,6 +128,7 @@ int main()
                         cout << "" << endl;
                         cout << txtElement.path().filename().string() << ":" << endl;
                         showLoadingAnimation();
+                        cout << "" << endl;
                         ifstream inputFile(txtElement.path());
                         if (inputFile.is_open())
                         {
@@ -169,7 +181,7 @@ int main()
                 }
             }
             cout << "" << endl;
-            cout << "Select the file you want to edit: ";
+            cout << "Select the number of the file you want to edit: ";
             cin >> writeFileSelection;
 
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -251,7 +263,7 @@ int main()
                 }
             }
             cout << "" << endl;
-            cout << "Select the file you want to delete: ";
+            cout << "Select the number of the file you want to delete: ";
             cin >> deleteFileSelection;
 
             indexDeleting = 1;
