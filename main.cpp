@@ -21,6 +21,43 @@ void showLoadingAnimation() {
     std::cout << " Complete!" << std::endl;
 }
 
+void encryptFile(const string& filePath) {
+    ifstream inputFile(filePath);
+    if (!inputFile.is_open()) {
+        cout << "Unable to open the file for encryption." << endl;
+        return;
+    }
+
+    stringstream encryptedContent;
+    string line;
+    while (getline(inputFile, line)) {
+        for (char& c : line) {
+            // Perform encryption logic (e.g., shift character by a fixed amount)
+            // Modify this logic according to your encryption algorithm
+            if (isalpha(c)) {
+                c = ((c - 'a') + 1) % 26 + 'a';
+            }
+        }
+        encryptedContent << line << endl;
+    }
+
+    inputFile.close();
+
+    ofstream outputFile(filePath);
+    if (!outputFile.is_open()) {
+        cout << "Unable to open the file for writing encrypted content." << endl;
+        return;
+    }
+
+    outputFile << encryptedContent.rdbuf();
+    outputFile.close();
+
+    cout << "File encrypted successfully." << endl;
+}
+
+
+
+
 int main()
 {
 
