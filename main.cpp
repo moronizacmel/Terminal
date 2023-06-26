@@ -139,6 +139,8 @@ int main()
         cout << "2. Read" << endl;
         cout << "3. Write" << endl;
         cout << "4. Delete" << endl;
+        cout << "5. Encrypt" << endl;
+        cout << "6. Decrypt" << endl;
         cout << "-----------------------------" << endl;
 
         // Read user input for option selection
@@ -409,6 +411,125 @@ int main()
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             
             break;
+
+
+        case 5:
+
+                    cout << "Encrypting..." << endl;
+            cout << "" << endl;
+            indexWriting = 1;
+
+            // Display the available text files for encryption
+            for (const auto &txtElement : fs::directory_iterator(filesDirectory))
+            {
+                if (txtElement.path().extension() == ".txt")
+                {
+                    cout << indexWriting << ". " << txtElement.path().filename().string() << endl;
+                    indexWriting++;
+                }
+            }
+            cout << "" << endl;
+            cout << "Select the number of the file you want to encrypt: ";
+            cin >> writeFileSelection;
+
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+            indexWriting = 1;
+            for (const auto &txtElement : fs::directory_iterator(filesDirectory))
+            {
+                if (txtElement.path().extension() == ".txt")
+                {
+                    if (indexWriting == writeFileSelection)
+                    {
+                        // Encrypt the selected file
+                        cout << "" << endl;
+                        cout << "Encrypting " << txtElement.path().filename().string() << ":" << endl;
+
+                        encryptFile(txtElement.path().string());
+
+                        showLoadingAnimation();
+                        cout << "" << endl;
+                        cout << "File encrypted successfully." << endl;
+                        founded = true;
+                        break;
+                    }
+                    indexWriting++;
+                }
+            }
+
+            if(!founded){
+                cout << "\033[31m" << "File not found" << endl;
+                cout << "\033[0m" << "" << endl;
+                showLoadingAnimation();
+            }
+
+            founded = false;
+
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.clear();
+
+            break;
+        case 6:
+
+        // Decrypt option
+
+            cout << "Decrypting..." << endl;
+            cout << "" << endl;
+            indexWriting = 1;
+
+            // Display the available text files for decryption
+            for (const auto &txtElement : fs::directory_iterator(filesDirectory))
+            {
+                if (txtElement.path().extension() == ".txt")
+                {
+                    cout << indexWriting << ". " << txtElement.path().filename().string() << endl;
+                    indexWriting++;
+                }
+            }
+            cout << "" << endl;
+            cout << "Select the number of the file you want to decrypt: ";
+            cin >> writeFileSelection;
+
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+            indexWriting = 1;
+            for (const auto &txtElement : fs::directory_iterator(filesDirectory))
+            {
+                if (txtElement.path().extension() == ".txt")
+                {
+                    if (indexWriting == writeFileSelection)
+                    {
+                        // Decrypt the selected file
+                        cout << "" << endl;
+                        cout << "Decrypting " << txtElement.path().filename().string() << ":" << endl;
+
+                        decryptFile(txtElement.path().string());
+
+                        showLoadingAnimation();
+                        cout << "" << endl;
+                        cout << "File decrypted successfully." << endl;
+                        founded = true;
+                        break;
+                    }
+                    indexWriting++;
+                }
+            }
+
+            if(!founded){
+                cout << "\033[31m" << "File not found" << endl;
+                cout << "\033[0m" << "" << endl;
+                showLoadingAnimation();
+            }
+
+            founded = false;
+
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.clear();
+
+            break;
+
+
+
 
         default:
             cout << "Invalid option. Try again." << endl;
