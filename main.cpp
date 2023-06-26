@@ -55,7 +55,39 @@ void encryptFile(const string& filePath) {
     cout << "File encrypted successfully." << endl;
 }
 
+void decryptFile(const string& filePath) {
+    ifstream inputFile(filePath);
+    if (!inputFile.is_open()) {
+        cout << "Unable to open the file for decryption." << endl;
+        return;
+    }
 
+    stringstream decryptedContent;
+    string line;
+    while (getline(inputFile, line)) {
+        for (char& c : line) {
+            // Perform decryption logic (e.g., reverse shift of characters)
+            // Modify this logic according to your decryption algorithm
+            if (isalpha(c)) {
+                c = ((c - 'a') - 1 + 26) % 26 + 'a';
+            }
+        }
+        decryptedContent << line << endl;
+    }
+
+    inputFile.close();
+
+    ofstream outputFile(filePath);
+    if (!outputFile.is_open()) {
+        cout << "Unable to open the file for writing decrypted content." << endl;
+        return;
+    }
+
+    outputFile << decryptedContent.rdbuf();
+    outputFile.close();
+
+    cout << "File decrypted successfully." << endl;
+}
 
 
 int main()
