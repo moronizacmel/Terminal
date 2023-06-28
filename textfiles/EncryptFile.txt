@@ -1,0 +1,6 @@
+este archivo debe ser secreto y no deberia de ser visto por cualquiera
+a menos que cuente con el decifrado apropiado
+de no ser asi entonces no deberia de ser capaz de hacer nada con esta informacion
+jor alguna razon este file no funciona con mayusculas
+\si que vamos a testear eso ahora mismo: \]^_`za tampoco ha sido testeado con simbolo
+asi que veamos que tal de esta manera ,./;'[] fin del testeo
